@@ -515,7 +515,8 @@ class BaseRequest(object):
             if cache:
                 self._cached_data = rv
         if as_text:
-            rv = rv.decode(self.charset, self.encoding_errors)
+            if isinstance(rv, bytes):
+                rv = rv.decode(self.charset, self.encoding_errors)
         return rv
 
     @cached_property
